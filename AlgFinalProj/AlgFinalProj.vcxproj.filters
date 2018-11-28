@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="structures.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="RBTree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
