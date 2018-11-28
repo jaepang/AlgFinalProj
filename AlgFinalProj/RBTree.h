@@ -1,15 +1,15 @@
 #ifndef __RBTREE__
 #define __RBTREE__
 
-typedef struct Node {
-	struct Node *left;
-	struct Node *right;
-	struct Node *p;
+typedef struct __NODE__ {
+	struct __NODE__ *left;
+	struct __NODE__ *right;
+	struct __NODE__ *p;
 	int key;
 	int isRed;
 } node;
 
-typedef struct Tree {
+typedef struct __TREE__ {
 	node *root;
 	int size;
 } tree;
