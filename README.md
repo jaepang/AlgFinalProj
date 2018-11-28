@@ -4,4 +4,4 @@
 #### Goal
 Implement Site/Hotel Recommendation System
 #### Team Members
-@shinjawkwang   @chocoPenguin
+@jkpraha   @chocoPenguin
