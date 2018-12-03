@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include "RBTree.h"
 
-tree *initTree() {
+tree *initTree(int pID) {
 	tree *t = (tree *)malloc(sizeof(tree));
+	t->pID = pID;
 	t->root = NULL;
 	return t;
 }
@@ -260,7 +261,6 @@ void rbInsert(tree *T, int x) {
 		T->root = z;
 	}
 	rbInsertFixup(T, z);
-	T->size++;
 }
 
 void rbDeleteFixup(tree *T, node *x) {

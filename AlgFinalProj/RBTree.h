@@ -11,10 +11,14 @@ typedef struct __NODE__ {
 
 typedef struct __TREE__ {
 	node *root;
-	int size;
+	/** this can be either site or hotel
+	  * because there are hotel RBTree
+	  * AND hotel reservation RBTree
+	*/
+	int pID;
 } tree;
 
-tree *initTree();
+tree *initTree(int pID);
 node *initNode(int k);
 node *search(tree *T, int z);
 node *successor(node *z);
