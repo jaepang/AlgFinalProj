@@ -18,12 +18,18 @@
     <ClCompile Include="RBTree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphNTransport.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RBTree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graph.h">
+    <ClInclude Include="graphNTransport.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

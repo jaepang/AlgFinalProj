@@ -7,6 +7,11 @@ typedef struct __NODE__ {
 	struct __NODE__ *p;
 	int key;
 	int isRed;
+	/** price will be -1 or int value
+	  * hotel: int value
+	  * reserved customer: -1 value
+	*/
+	int price;
 } node;
 
 typedef struct __TREE__ {
@@ -19,7 +24,8 @@ typedef struct __TREE__ {
 } tree;
 
 tree *initTree(int pID);
-node *initNode(int k);
+node *initHotelNode(int k, int p);
+node *initCustomerNode(int k);
 node *search(tree *T, int z);
 node *successor(node *z);
 node *precessor(node *z);
@@ -29,7 +35,7 @@ void printTree(tree *t);
 void leftRotate(tree *T, node *x);
 void rightRotate(tree *T, node *x);
 void rbInsertFixup(tree *T, node *z);
-void rbInsert(tree *T, int x);
+void rbInsert(tree *T, int x, int p);
 void rbDeleteFixup(tree *T, node *x);
 void rbDelete(tree *T, int tar);
 #endif

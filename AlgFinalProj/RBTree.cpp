@@ -9,13 +9,25 @@ tree *initTree(int pID) {
 	return t;
 }
 
-node *initNode(int k) {
+node *initHotelNode(int k, int p) {
 	node *n = (node *)malloc(sizeof(node));
 	n->left = NULL;
 	n->right = NULL;
 	n->p = NULL;
 	n->key = k;
 	n->isRed = 0;
+	n->price = p;
+	return n;
+}
+
+node *initCustomerNode(int k) {
+	node *n = (node *)malloc(sizeof(node));
+	n->left = NULL;
+	n->right = NULL;
+	n->p = NULL;
+	n->key = k;
+	n->isRed = 0;
+	n->price = -1;
 	return n;
 }
 
@@ -231,9 +243,15 @@ void rbInsertFixup(tree *T, node *z) {
 	T->root->isRed = 0;
 }
 
-void rbInsert(tree *T, int x) {
-	node *cur, *prev = NULL;
-	node *z = initNode(x);
+void rbInsert(tree *T, int x, int p) {
+	node *z, *cur, *prev = NULL;
+	if (p != -1) {
+		z = initHotelNode(x, p);
+	}
+	else {
+		z = initCustomerNode(x);
+	}
+	
 	z->isRed = 1;
 	cur = T->root;
 	while (cur != NULL) {
