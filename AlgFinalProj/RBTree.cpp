@@ -1,33 +1,35 @@
+/**
+ * Algorithm Final Project - RBTree.cpp
+ *
+ * Team 21 :
+ *		2017312077 YESONG HA
+ *		2017310528 JAEKWANG SHIN
+ *
+ * github repository :
+ *		https://github.com/shinjawkwang/AlgFinalProj
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "RBTree.h"
 
-tree *initTree(int pID) {
+tree *initTree() {
 	tree *t = (tree *)malloc(sizeof(tree));
-	t->pID = pID;
 	t->root = NULL;
 	return t;
 }
 
-node *initHotelNode(int k, int p) {
+node *initNode(int k) {
 	node *n = (node *)malloc(sizeof(node));
 	n->left = NULL;
 	n->right = NULL;
 	n->p = NULL;
 	n->key = k;
 	n->isRed = 0;
-	n->price = p;
-	return n;
-}
-
-node *initCustomerNode(int k) {
-	node *n = (node *)malloc(sizeof(node));
-	n->left = NULL;
-	n->right = NULL;
-	n->p = NULL;
-	n->key = k;
-	n->isRed = 0;
-	n->price = -1;
+	/** reserveTree is initially NULL
+	  * because nodes in customer Tree
+	  * don't need it.
+	  */
+	n->reserveTree = NULL;
 	return n;
 }
 
@@ -243,14 +245,8 @@ void rbInsertFixup(tree *T, node *z) {
 	T->root->isRed = 0;
 }
 
-void rbInsert(tree *T, int x, int p) {
-	node *z, *cur, *prev = NULL;
-	if (p != -1) {
-		z = initHotelNode(x, p);
-	}
-	else {
-		z = initCustomerNode(x);
-	}
+void rbInsert(tree *T, node *z) {
+	node *cur, *prev = NULL;
 	
 	z->isRed = 1;
 	cur = T->root;
@@ -376,4 +372,10 @@ void rbDelete(tree *T, int tar) {
 			rbDeleteFixup(T, x);
 		}
 	}
+}
+
+/* for hotel nodes only: init hotel reservation tree */
+void initReservationTree(node *n) {
+	tree *rTree = initTree();
+	n->reserveTree = rTree;
 }
