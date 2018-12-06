@@ -11,10 +11,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "RBTree.h"
+#include "Hotel.h"
 #include "graphNTransport.h"
+#include "customer.h"
 
-#define SITESIZE 100
+#define CITYSIZE 100
 #define HOTELSIZE 100
 #define TPSIZE 300
 
@@ -24,37 +25,38 @@ int *setVertex(tp **tpGroup, int size);   // avoid creating vertex that is alrea
 int main(void) {
 	int i, j, price;				// i,j: for iteration; price: literally
 	int *vertex;					// vertex
-	tree *hotelTree;				// temporalily created and fit into each site
-	node *node;						// temporary node
+	cTree *customerTree;		    // RBTree that save customer information
+	hTree *hotelTree;				// temporalily created and fit into each city
+	hotel *node;					// temporary hotel node
 	gNode *edge;					// temporary edge
-	site *site[SITESIZE];			// core graph variable **important
+	city *city[CITYSIZE];			// core graph variable **important
 	tp *transport[TPSIZE];			// transport array
 	srand(time(NULL));				// for random
 
-	/* =============== Randomly generate site, hotel, transportation =============== */
-	for (i = 0; i < SITESIZE; i++) {
-		hotelTree = initTree();
-		// there should be 100 hotels per site
+	/* =============== Randomly generate city, hotel, transportation =============== */
+	customerTree = initCTree();
+	for (i = 0; i < CITYSIZE; i++) {
+		hotelTree = initHTree();
+		// there should be 100 hotels per city
 		for (j = 0; j < HOTELSIZE; j++) {
 			// hotel price boundary: 1000~10000
 			price = (rand() % 10 + 1) * 1000;
-			node = initNode(price);
-			initReservationTree(node);
+			node = initCustomer(price);
 			rbInsert(hotelTree, node);
 		}
-		// site tour time boundary: 1~5 (hours)
-		site[i] = initSite(hotelTree, rand() % 5 + 1);
+		// city tour time boundary: 1~5 (hours)
+		city[i] = initCity(hotelTree, rand() % 5 + 1);
 	}
 
 	for (i = 0; i < TPSIZE; i++) {
 		vertex = setVertex(transport, i);
 		// transport price boundary: 10~100
 		transport[i] = initTransport(vertex, (rand() % 10 + 1) * 10);
-		// connect site and site
+		// connect city and city
 		edge = initGNode(vertex[1], transport[i]);
-		insertVertex(site[vertex[0]], edge);
+		insertVertex(city[vertex[0]], edge);
 		edge = initGNode(vertex[0], transport[i]);
-		insertVertex(site[vertex[1]], edge);
+		insertVertex(city[vertex[1]], edge);
 		free(vertex);	// we don't need this anymore
 	}
 	/* ============================================================================= */
@@ -71,7 +73,7 @@ int main(void) {
  * This function should be here
  * because when in another .cpp,
  * srand(time(NULL)) doesn't work
- * and generate 300 same vertexes
+ * as result, generate 300 same vertexes
  */
 int *vertexAvoidDup() {
 	int s = 0, e = 0, *ver;

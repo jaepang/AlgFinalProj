@@ -29,15 +29,15 @@ gNode *initGNode(int sID, tp *trans) {
 	return edge;
 }
 
-site *initSite(tree* hTree, int tourT) {
-	site *s = (site *)malloc(sizeof(site));
+city *initCity(hTree* hTree, int tourT) {
+	city *s = (city *)malloc(sizeof(city));
 	s->head = NULL;
 	s->hotelTree = hTree;
 	s->tourTime = tourT;
 	return s;
 }
 
-void insertVertex(site *S, gNode *edge) {
+void insertVertex(city *S, gNode *edge) {
 	gNode *cur;
 	if (S->head == NULL) {
 		S->head = edge;

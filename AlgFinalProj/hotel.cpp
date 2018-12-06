@@ -10,31 +10,26 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "RBTree.h"
+#include "Hotel.h"
 
-tree *initTree() {
-	tree *t = (tree *)malloc(sizeof(tree));
+hTree *initHTree() {
+	hTree *t = (hTree *)malloc(sizeof(hTree));
 	t->root = NULL;
 	return t;
 }
 
-node *initNode(int k) {
-	node *n = (node *)malloc(sizeof(node));
+hotel *initCustomer(int k) {
+	hotel *n = (hotel *)malloc(sizeof(hotel));
 	n->left = NULL;
 	n->right = NULL;
 	n->p = NULL;
 	n->key = k;
 	n->isRed = 0;
-	/** reserveTree is initially NULL
-	  * because nodes in customer Tree
-	  * don't need it.
-	  */
-	n->reserveTree = NULL;
 	return n;
 }
 
-node *search(tree *T, int z) {
-	node *cur = T->root;
+hotel *search(hTree *T, int z) {
+	hotel *cur = T->root;
 
 	// printf("Search(%d) path: ", z);
 	while (cur != NULL) {
@@ -54,8 +49,8 @@ node *search(tree *T, int z) {
 	return NULL;
 }
 
-node *successor(node *z) {
-	node *prev;
+hotel *successor(hotel *z) {
+	hotel *prev;
 	if (z->right != NULL) {
 		z = z->right;
 		while (z->left != NULL) {
@@ -73,8 +68,8 @@ node *successor(node *z) {
 	}
 }
 
-node *precessor(node *z) {
-	node *prev;
+hotel *precessor(hotel *z) {
+	hotel *prev;
 	if (z->left != NULL) {
 		z = z->left;
 		while (z->right != NULL) {
@@ -97,7 +92,7 @@ node *precessor(node *z) {
  * add 1 to subtree height
  * because we print line between nodes
 */
-int heightPrint(node *n) {
+int heightPrint(hotel *n) {
 	int r = 0, l = 0;
 	if (n->right != NULL)
 		r = heightPrint(n->right) + 1;
@@ -106,7 +101,7 @@ int heightPrint(node *n) {
 	return 1 + (r > l ? r : l);
 }
 
-int print(node *n, int isLeft, int offset, int depth, char treeStr[20][255]) {
+int print(hotel *n, int isLeft, int offset, int depth, char treeStr[20][255]) {
 	char b[5];
 	int width = 3;
 
@@ -143,10 +138,10 @@ int print(node *n, int isLeft, int offset, int depth, char treeStr[20][255]) {
 	return left + width + right;
 }
 
-void printTree(tree *t) {
+void printTree(hTree *t) {
 	char treeStr[20][255];
 	int height;
-	node *root = t->root;
+	hotel *root = t->root;
 	for (int i = 0; i < 20; i++) {
 		sprintf(treeStr[i], "%150s", " ");
 	}
@@ -160,8 +155,8 @@ void printTree(tree *t) {
 	printf("\n");
 }
 
-void leftRotate(tree *T, node *x) {
-	node *y = x->right;
+void leftRotate(hTree *T, hotel *x) {
+	hotel *y = x->right;
 	x->right = y->left;
 	if (y->left != NULL) {
 		y->left->p = x;
@@ -180,8 +175,8 @@ void leftRotate(tree *T, node *x) {
 	x->p = y;
 }
 
-void rightRotate(tree *T, node *x) {
-	node *y = x->left;
+void rightRotate(hTree *T, hotel *x) {
+	hotel *y = x->left;
 	x->left = y->right;
 	if (y->right != NULL) {
 		y->right->p = x;
@@ -200,8 +195,8 @@ void rightRotate(tree *T, node *x) {
 	x->p = y;
 }
 
-void rbInsertFixup(tree *T, node *z) {
-	node *y;
+void rbInsertFixup(hTree *T, hotel *z) {
+	hotel *y;
 	if (z->p != NULL && z->p->p != NULL) {
 		while (z != NULL && z->p != NULL && z->p->p != NULL && z->p->isRed) {
 			if (z->p == z->p->p->left) {
@@ -223,7 +218,7 @@ void rbInsertFixup(tree *T, node *z) {
 				}
 			}
 			else {
-				node *y = z->p->p->left;
+				hotel *y = z->p->p->left;
 				if (y != NULL && y->isRed) {
 					z->p->isRed = 0;
 					y->isRed = 0;
@@ -245,8 +240,8 @@ void rbInsertFixup(tree *T, node *z) {
 	T->root->isRed = 0;
 }
 
-void rbInsert(tree *T, node *z) {
-	node *cur, *prev = NULL;
+void rbInsert(hTree *T, hotel *z) {
+	hotel *cur, *prev = NULL;
 	
 	z->isRed = 1;
 	cur = T->root;
@@ -277,8 +272,8 @@ void rbInsert(tree *T, node *z) {
 	rbInsertFixup(T, z);
 }
 
-void rbDeleteFixup(tree *T, node *x) {
-	node *y;
+void rbDeleteFixup(hTree *T, hotel *x) {
+	hotel *y;
 	while (x != T->root && !x->isRed) {
 		if (x->p->left == x) {
 			y = x->p->right;
@@ -337,9 +332,9 @@ void rbDeleteFixup(tree *T, node *x) {
 	}
 }
 
-void rbDelete(tree *T, int tar) {
-	node *x, *y;
-	node *z = search(T, tar);
+void rbDelete(hTree *T, int tar) {
+	hotel *x, *y;
+	hotel *z = search(T, tar);
 	if (z != NULL) {
 		if (z->left == NULL || z->right == NULL) {
 			y = z;
@@ -372,10 +367,4 @@ void rbDelete(tree *T, int tar) {
 			rbDeleteFixup(T, x);
 		}
 	}
-}
-
-/* for hotel nodes only: init hotel reservation tree */
-void initReservationTree(node *n) {
-	tree *rTree = initTree();
-	n->reserveTree = rTree;
 }

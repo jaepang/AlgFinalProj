@@ -8,12 +8,12 @@
  * github repository :
  *		https://github.com/shinjawkwang/AlgFinalProj
  */
-#include "RBTree.h"
+#include "Hotel.h"
 #ifndef __GRAPHNTRANSPORT__
 #define __GRAPHNTRANSPORT__
 
 /**
- * in main, make site[100] ==> a graph
+ * in main, make city[100] ==> a graph
  *
  * ===================================================================
  * Example :
@@ -23,10 +23,10 @@
  *	   99: hotelTree(99), -> edge 99-1 -> edge 99-2 -> ... -> NULL
  * ===================================================================
  *
- * each index is each site
+ * each index is each city
  */
 
-typedef struct __TRNASPORT__ {
+typedef struct __TRANSPORT__ {
 	/**
 	 * Although the naming is start and end,
 	 * the order shouln't be cared
@@ -45,12 +45,12 @@ typedef struct __GRAPHNODE__ {
 
 typedef struct __SITEINFO__ {
 	gNode *head;
-	tree *hotelTree;
+	hTree *hotelTree;
 	int tourTime;
-} site;
+} city;
 
 tp *initTransport(int *vInfo, int price);
 gNode *initGNode(int sID, tp *trans);
-site *initSite(tree* hTree, int tourT);
-void insertVertex(site *S, gNode *edge);
+city *initCity(hTree* hTree, int tourT);
+void insertVertex(city *S, gNode *edge);
 #endif

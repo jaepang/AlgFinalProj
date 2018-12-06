@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -139,13 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="customer.cpp" />
     <ClCompile Include="graphNTransport.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="RBTree.cpp" />
+    <ClCompile Include="hotel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="customer.h" />
     <ClInclude Include="graphNTransport.h" />
-    <ClInclude Include="RBTree.h" />
+    <ClInclude Include="Hotel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
