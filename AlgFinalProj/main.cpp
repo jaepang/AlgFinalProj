@@ -39,12 +39,12 @@ int main(void) {
 		hotelTree = initHTree();
 		// there should be 100 hotels per city
 		for (j = 0; j < HOTELSIZE; j++) {
-			// hotel price boundary: 1000~10000
-			price = (rand() % 10 + 1) * 1000;
+			// hotel price boundary: 500~5000
+			price = (rand() % 10 + 1) * 500;
 			node = initCustomer(price);
 			rbInsert(hotelTree, node);
 		}
-		// city tour time boundary: 1~5 (hours)
+		// city tour time boundary: 1~5 (days)
 		city[i] = initCity(hotelTree, rand() % 5 + 1);
 	}
 
