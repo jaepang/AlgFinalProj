@@ -26,7 +26,7 @@ typedef struct __HOTELTREE__ {
 } hTree;
 
 hTree *initHTree();
-hotel *initCustomer(int k);
+hotel *initHotel(int k);
 hotel *search(hTree *T, int z);
 hotel *successor(hotel *z);
 hotel *precessor(hotel *z);

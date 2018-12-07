@@ -18,7 +18,7 @@ hTree *initHTree() {
 	return t;
 }
 
-hotel *initCustomer(int k) {
+hotel *initHotel(int k) {
 	hotel *n = (hotel *)malloc(sizeof(hotel));
 	n->left = NULL;
 	n->right = NULL;
