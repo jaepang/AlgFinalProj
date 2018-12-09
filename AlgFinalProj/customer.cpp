@@ -25,6 +25,7 @@ customer *initCustomer(int k) {
 	n->p = NULL;
 	n->key = k;
 	n->isRed = 0;
+	n->route = NULL;
 	return n;
 }
 
