@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Hotel.h"
+#include "itinerary.h"
 #include "graphNTransport.h"
 #include "customer.h"
 
@@ -24,11 +25,13 @@ int *setVertex(tp **tpGroup, int size);   // avoid creating vertex that is alrea
 
 int main(void) {
 	int i, j, price;				// i,j: for iteration; price: literally
+	int tmpKey, tmpDst;				// tmpDst: used for input dst, tmpKey: used for input key
 	int *vertex;					// vertex
 	cTree *customerTree;		    // RBTree that save customer information
 	hTree *hotelTree;				// temporalily created and fit into each city
 	hotel *node;					// temporary hotel node
 	gNode *edge;					// temporary edge
+	customer *person;				// temporary customer
 	city *city[CITYSIZE];			// core graph variable **important
 	tp *transport[TPSIZE];			// transport array
 	srand(time(NULL));				// for random
@@ -46,7 +49,7 @@ int main(void) {
 		}
 		// city tour time boundary: 1~5 (days)
 		city[i] = initCity(hotelTree, rand() % 5 + 1);
-	}
+	}	
 
 	for (i = 0; i < TPSIZE; i++) {
 		vertex = setVertex(transport, i);
@@ -66,6 +69,29 @@ int main(void) {
 	 * Show me your code
 	 * ASAP..
 	 */
+
+	 /* ===========Part for getting inputs============================================ */
+
+
+	printf("Please Enter Your Information\n");
+	printf("> What is you ID?\n> ");
+	scanf("%d", &tmpKey);
+	person = initCustomer(tmpKey);
+
+	printf("> What is your budget?\n> ");
+	scanf("%d", &(person->budget));
+	printf("> Where is you destination?(0 ~ 99)\n> ");
+	scanf("%d", &tmpDst);
+	person->destination = city[tmpDst];
+	printf("> How long will you travel?\n> ");
+	scanf("%d", &(person->period));
+
+	rbInsert(customerTree, person);
+	printTree(customerTree);
+	
+	routeFinding(person, person->destination, tmpDst, city, 0, 0);
+	
+	
 	return 0;
 }
 

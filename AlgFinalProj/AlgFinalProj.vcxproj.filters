@@ -15,21 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RBTree.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="graphNTransport.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="customer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="hotel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="itinerary.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RBTree.h">
+    <ClInclude Include="graphNTransport.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphNTransport.h">
+    <ClInclude Include="customer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Hotel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="itinerary.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
