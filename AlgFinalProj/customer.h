@@ -18,7 +18,7 @@ typedef struct __CUSTOMERNODE__ {
 	struct __CUSTOMERNODE__ *right;
 	struct __CUSTOMERNODE__ *p;
 	/*================================*/
-	int key;
+	char *key;
 	city *destination;	// destination site: input by user
 	city **route;   	// recommended route of the customer
 	int budget;
@@ -31,8 +31,8 @@ typedef struct __CUSTOMERTREE__ {
 } cTree;
 
 cTree *initCTree();
-customer *initCustomer(int k);
-customer *search(cTree *T, int z);
+customer *initCustomer(char *k);
+customer *search(cTree *T, char *z);
 customer *successor(customer *z);
 customer *precessor(customer *z);
 int heightPrint(customer *n);
@@ -43,5 +43,5 @@ void rightRotate(cTree *T, customer *x);
 void rbInsertFixup(cTree *T, customer *z);
 void rbInsert(cTree *T, customer *z);
 void rbDeleteFixup(cTree *T, customer *x);
-void rbDelete(cTree *T, int tar);
+void rbDelete(cTree *T, char *tar);
 #endif
