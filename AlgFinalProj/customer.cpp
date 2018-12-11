@@ -10,6 +10,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "customer.h"
 
 cTree *initCTree() {
@@ -18,7 +19,7 @@ cTree *initCTree() {
 	return t;
 }
 
-customer *initCustomer(int k) {
+customer *initCustomer(char *k) {
 	customer *n = (customer *)malloc(sizeof(customer));
 	n->left = NULL;
 	n->right = NULL;
@@ -29,17 +30,17 @@ customer *initCustomer(int k) {
 	return n;
 }
 
-customer *search(cTree *T, int z) {
+customer *search(cTree *T, char *z) {
 	customer *cur = T->root;
 
 	// printf("Search(%d) path: ", z);
 	while (cur != NULL) {
 		// printf("%d ", cur->key);
-		if (z == cur->key) {
+		if (strcmp(z,cur->key) == 0) {
 			// printf("=> Found!\n");
 			return cur;
 		}
-		else if (z < cur->key) {
+		else if (strcmp(z, cur->key) < 0) {
 			cur = cur->left;
 		}
 		else {
@@ -333,7 +334,7 @@ void rbDeleteFixup(cTree *T, customer *x) {
 	}
 }
 
-void rbDelete(cTree *T, int tar) {
+void rbDelete(cTree *T, char *tar) {
 	customer *x, *y;
 	customer *z = search(T, tar);
 	if (z != NULL) {
