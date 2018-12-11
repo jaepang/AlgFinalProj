@@ -74,17 +74,22 @@ int main(void) {
 	 */
 
 	 /* ===========Part for getting inputs============================================ */
-	user = initUI(customerTree);
-	person = initCustomer(user->key);
-	person->budget = user->budget;
-	person->destination = city[user->destination];
-	person->period = user->period;
+	while (1) {
+		user = initUI(customerTree);
+		if (user == NULL) {
+			break;
+		}
+		person = initCustomer(user->key);
+		person->budget = user->budget;
+		person->destination = city[user->destination];
+		person->period = user->period;
 
-	rbInsert(customerTree, person);
-	printTree(customerTree);
-	
-	routeFinding(person, person->destination, tmpDst, city, 0, 0);
-	
+		rbInsert(customerTree, person);
+		printTree(customerTree);
+
+		routeFinding(person, person->destination, tmpDst, city, 0, 0);
+
+	}
 	
 	return 0;
 }
