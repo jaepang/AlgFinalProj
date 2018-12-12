@@ -306,12 +306,9 @@ hotel *search_p(hTree *T, int z) {
 	hotel *cur = T->root;
 	hotel *prev;
 
-	// printf("Search_P(%d) path: ", z);
 	while (cur != NULL) {
 		prev = cur;
-		printf("%d ", cur->key);
 		if (z == cur->key) {
-			printf("=> Found. no meaningful\n");
 			return cur;
 		}
 		else if (z < cur->key) {
@@ -322,6 +319,5 @@ hotel *search_p(hTree *T, int z) {
 		}
 	}
 	if (prev->key > z) return precessor(prev);
-	printf("=> Not Found. meaninguful\n");
 	return prev;
 }

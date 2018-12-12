@@ -46,7 +46,6 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 	int flag = 0, back_flag;
 	
 	if (top > 0&&(nowIndex==user->destination)) {
-		printf("there's no way satisfying conditions\n");
 		return -1;
 	}
 
@@ -59,17 +58,13 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 
 
 			if (nowT + now->tourTime == person->period) {
-				printf("sID: %d, nowT: %d tourTime: %d\n", nowIndex, nowT, now->tourTime);
-				printf("finish");
 				push(nowIndex, now->tourTime);
 				nowT += now->tourTime;
 				return 0;
 			}
 			else if (nowT + now->tourTime < person->period) {
-				printf("sID: %d, nowT: %d tourTime: %d\n", nowIndex, nowT, now->tourTime);
 				nowT += now->tourTime;
 				while (tmpNode != NULL) {
-					printf("0");
 					for (int i = top - 1; i >= 0; i--) {
 						if (stack[i][0] == tmpNode->sID) {
 							flag = 1;
@@ -86,12 +81,10 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 				}
 
 				if (tmpNode == NULL) {
-					printf("No route here way!\n");
 					tmpNode = city[stack[top - 1][0]]->head;
 
 					back_flag = 1;
 					while (tmpNode->sID != nowIndex) {
-						printf("2");
 						back_flag++;
 						tmpNode = tmpNode->next;
 					}
@@ -104,20 +97,16 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 			}
 
 			else {
-				printf("going back index: %d time: %d\n", nowIndex, now->tourTime);
-
 				for (int i = 1;; i++) {
 
 					tmpNode = city[stack[top - i][0]]->head;
 					back_flag = 1;
 					while (tmpNode->sID != nowIndex) {
-						printf("-1");
 						back_flag++;
 						tmpNode = tmpNode->next;
 						if (tmpNode == NULL) break;
 					}
 					if (tmpNode == NULL) {
-						printf("continue\n");
 						nowIndex = stack[top - i][0];
 						continue;
 					}
@@ -132,7 +121,6 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 
 		/* ==================== Going Back ========================= */
 		else {
-			printf("back!=0\n");
 			tmpNode = now->head;
 
 			if (tmpNode != NULL) {
@@ -163,8 +151,6 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 						tmpNode = city[stack[top - i][0]]->head;
 						back_flag = 1;
 						while (tmpNode->sID != nowIndex) {
-							printf("sID: %d, nowT: %d \n", tmpNode->sID, nowIndex);
-							printf("1");
 							back_flag++;
 							tmpNode = tmpNode->next;
 							if (tmpNode == NULL) break;
@@ -173,7 +159,7 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 						if (tmpNode == NULL) {
 							continue;
 						}
-
+						top -= i;
 						return routeFinding(person, city[stack[top - 1][0]], stack[top - 1][0], city, nowT, back_flag, user);
 					}
 				}
@@ -181,14 +167,12 @@ int routeFinding(customer* person, city* now, int nowIndex, city** city, int now
 				return routeFinding(person, city[tmpNode->sID], tmpNode->sID, city, nowT, 0, user);
 			}
 			else if (top - 2 < 0) {
-				printf("there's no route");
 				return -1;
 			}
 			else {
 				back_flag = 0;
 				tmpNode = city[stack[top - 2][0]]->head;
 				while (tmpNode != NULL) {
-					printf("5");
 					if (tmpNode->sID == stack[top - 1][0]) {
 						pop();
 						break;
@@ -222,16 +206,13 @@ void moneyCalculate(customer* person, city* now, city** city) {
 	}
 	person->budget -= transMoney;
 	meanMoney = int(person->budget / person->period);
-	//printf("\nmean money: %d\n", meanMoney);
 
 	for (int i = top - 1; i >= 0; i--) {
 		tmpHotel = search_p(city[i]->hotelTree, meanMoney);
-		//printf("Hotel money: %d\n", tmpHotel->key);
 		stack[i][2] = tmpHotel->id;
 		stack[i][3] = tmpHotel->key;
   		person->budget -= (tmpHotel->key)*stack[i][1];
 	}
-	//printf("Left money: %d\n", person->budget);
 }
 
 // stack [a][0] = city number
