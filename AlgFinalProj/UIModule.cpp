@@ -9,6 +9,7 @@ userinfo *initUI(cTree *tree) {
 	customer *tmp;
 	char cmd[100];
 	int cmdI;
+	user->key = (char *)malloc(sizeof(char) * 10);
 
 	while (1) {
 		printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
@@ -27,11 +28,11 @@ userinfo *initUI(cTree *tree) {
 		if (strcmp(cmd, "Y") == 0 || strcmp(cmd, "y") == 0) {
 			break;
 		}
-		else if (strcmp(cmd, "N") == 0 || strcmp(cmd, "n")) {
+		else if (strcmp(cmd, "N") == 0 || strcmp(cmd, "n") == 0) {
 			printf("END PROGRAM. Good Bye!\n");
 			return NULL;
 		}
-		else if (strcmp(cmd, "S") == 0 || strcmp(cmd, "s")) {
+		else if (strcmp(cmd, "S") == 0 || strcmp(cmd, "s") == 0) {
 			while (1) {
 				printf(">>   Then, input your ID (q to end): ");
 				scanf("%s", cmd);
@@ -54,6 +55,7 @@ userinfo *initUI(cTree *tree) {
 		}
 	}
 
+	printf("\n\n");
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 	printf("@                                                            @\n");
 	printf("@            THANK YOU for chosing our service!!!            @\n");
@@ -64,7 +66,7 @@ userinfo *initUI(cTree *tree) {
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 	
 	while (1) {
-		printf("\n\n>>   Type your ID, please (string): ");
+		printf("\n\n>>   Type your ID, please (string, max length:10): ");
 		scanf("%s", cmd);
 		if (search(tree, cmd) != NULL) {
 			printf("\n     ¡Ø ERROR: ID ALREADY EXISTS!!!\n");
@@ -72,8 +74,11 @@ userinfo *initUI(cTree *tree) {
 		else if (strcmp(cmd, "q") == 0) {
 			printf("\n     ¡Ø ERROR: YOU CAN'T USE THIS ID.\n");
 		}
+		else if (strlen(cmd) > 10) {
+			printf("\n     ¡Ø ERROR: STRING TOO LONG.\n");
+		}
 		else {
-			user->key = cmd;
+			strcpy(user->key, cmd);
 			break;
 		}
 	}
@@ -81,14 +86,15 @@ userinfo *initUI(cTree *tree) {
 	scanf("%d", &cmdI);
 	user->destination = cmdI;
 
-	printf("\n>>   Type your travel budget, please (integer): ");
+	printf(">>   Type your travel budget, please (integer): ");
 	scanf("%d", &cmdI);
 	user->budget = cmdI;
 
-	printf("\n>>   Type your travel period, please (integer): ");
+	printf(">>   Type your travel period, please (integer): ");
 	scanf("%d", &cmdI);
 	user->period = cmdI;
 	
+	printf("\n\n");
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 	printf("@                                                            @\n");
 	printf("@              There's nothing you have to do!               @\n");
@@ -204,15 +210,15 @@ int heightPrint(customer *n) {
 }
 
 int print(customer *n, int isLeft, int offset, int depth, char treeStr[20][255]) {
-	char b[20];
-	int width = 3;
+	char b[15];
+	int width = 11;
 
 	if (n == NULL) {
 		return 0;
 	}
 
 	/* print color and key value */
-	sprintf(b, "%c%15s", n->isRed ? 'R' : 'B', n->key);
+	sprintf(b, "%c%10s", n->isRed ? 'R' : 'B', n->key);
 
 	int left = print(n->left, 1, offset, depth + 1, treeStr);
 	int right = print(n->right, 0, offset + left + width, depth + 1, treeStr);

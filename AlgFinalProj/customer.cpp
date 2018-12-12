@@ -21,10 +21,11 @@ cTree *initCTree() {
 
 customer *initCustomer(char *k) {
 	customer *n = (customer *)malloc(sizeof(customer));
+	n->key = (char *)malloc(sizeof(char) * 10);
 	n->left = NULL;
 	n->right = NULL;
 	n->p = NULL;
-	n->key = k;
+	strcpy(n->key, k);
 	n->isRed = 0;
 	n->route = NULL;
 	return n;
