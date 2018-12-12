@@ -83,7 +83,6 @@ int main(void) {
 		person->period = user->period;
 
 		rbInsert(customerTree, person);
-		printTree(customerTree);
 
 		ResultUI(person, city, user, transport);
 

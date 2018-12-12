@@ -21,10 +21,9 @@ userinfo *initUI(cTree *tree) {
 		printf("@                                                            @\n");
 		printf("@    1. If you agree collecting your information, PRESS Y!   @\n");
 		printf("@    2. If you don't agree or want to end service, PRESS N.  @\n");
-		printf("@    3. If you already used our service, PRESS S.            @\n");
 		printf("@                                                            @\n");
 		printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
-		printf("\n\n>>   셋 중에 하나만 골라 Yes or Yes! (Y/N/S): ");
+		printf("\n\n>>   둘 중에 하나만 골라 Yes or Yes! (Y/N): ");
 		scanf("%s", cmd);
 		if (strcmp(cmd, "Y") == 0 || strcmp(cmd, "y") == 0) {
 			break;
@@ -32,24 +31,6 @@ userinfo *initUI(cTree *tree) {
 		else if (strcmp(cmd, "N") == 0 || strcmp(cmd, "n") == 0) {
 			printf("END PROGRAM. Good Bye!\n");
 			return NULL;
-		}
-		else if (strcmp(cmd, "S") == 0 || strcmp(cmd, "s") == 0) {
-			while (1) {
-				printf(">>   Then, input your ID (q to end): ");
-				scanf("%s", cmd);
-				tmp = search(tree, cmd);
-				if (strcmp(cmd, "q") == 0) {
-					printf("     END PROGRAM. Good Bye!\n");
-					return NULL;
-				}
-				else if (tmp == NULL) {
-					printf("     ※ ERROR: ID DOESN'T EXIST!!!\n");
-				}
-				else {
-					//ResultUI(tmp);
-					break;
-				}
-			}
 		}
 		else {
 			printf("Wrong Input! please input again..\n");
@@ -84,7 +65,7 @@ userinfo *initUI(cTree *tree) {
 		}
 	}
 	while (1) {
-		printf("\n>>   Type your Destination City, please (0~99): ");
+		printf(">>   Type your Destination City, please (0~99): ");
 		scanf("%d", &cmdI);
 		if (0 <= cmdI && cmdI <= 99) {
 			break;
@@ -125,15 +106,20 @@ userinfo *initUI(cTree *tree) {
 }
 
 void ResultUI(customer *person, city **city, userinfo *user, tp **t) {
+	printf("\n\n");
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"); // 62
 	printf("@                                                            @\n");
 	printf("@            THANK YOU for waiting our program!!!            @\n");
 	printf("@                                                            @\n");
 	printf("@   We'll show you the result while running our algorithm.   @\n");
 	printf("@                                                            @\n");
-	printf("@                   Your ID: %15s                   @\n", person->key); // 19 24 19
+	printf("@                   Your ID: %-15s                 @\n", person->key); // 19 24 19
 	printf("@                                                            @\n");
-	itinerary(person, person->destination, city, user, t);
+	if (itinerary(person, person->destination, city, user, t) == -1) {
+		printf("@           Sorry. There aren't possible route. END.         @\n");
+		printf("@                                                            @\n");
+		printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+	}
 }
 
 /**

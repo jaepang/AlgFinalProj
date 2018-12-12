@@ -30,7 +30,7 @@ void push(int num, int day) {
 }
 void pop() { top--; }
 
-void itinerary(customer* person, city* now, city** city, userinfo *user, tp **t) {
+int itinerary(customer* person, city* now, city** city, userinfo *user, tp **t) {
 	stack[100][100] = { 0, };
 	top = 0;
 	int retNum = 0;
@@ -38,8 +38,14 @@ void itinerary(customer* person, city* now, city** city, userinfo *user, tp **t)
 	retNum=routeFinding(person, person->destination, user->destination, city, 0, 0, user);
 	// If retNum==0, correctly found route
 	// If retNum==-1, there's no route
-	moneyCalculate(person, person->destination, city);
-	stackPrinter(city, t);
+	if (retNum == -1) {
+		return -1;
+	}
+	else {
+		moneyCalculate(person, person->destination, city);
+		stackPrinter(city, t);
+		return 0;
+	}
 }
 
 int routeFinding(customer* person, city* now, int nowIndex, city** city, int nowT, int back, userinfo *user) {
@@ -228,15 +234,17 @@ void stackPrinter(city **c, tp **t) {
 		hID = stack[i][2];
 		hP = stack[i][3];
 		printf("@                                                            @\n");// 60
-		printf("@                          city: %2d                          @\n", cID);
-		printf("@                     hotel price(%2d): %4d                    @\n", hID, hP);
-		printf("@                        tour time: %d                        @\n", c[cID]->tourTime);
+		printf("@                          city: %-2d                          @\n", cID);
+		printf("@                     hotel price(%-2d): %-4d                  @\n", hID, hP);
+		printf("@                      tour time: %ddays                      @\n", c[cID]->tourTime);
 		printf("@                                                            @\n");
 		if (0 < i) {
 			tID = searchTransport(t, stack[i][0], stack[i - 1][0]);
-			printf("@                       transport: %3d                       @\n", tID);
-			printf("@                         price: %3d                         @\n", t[tID]->price);
+			printf("@                       transport: %-3d                       @\n", tID);
+			printf("@                         price: %-3d                         @\n", t[tID]->price);
 		}
 	}
-	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+	printf("@       Thank you for using our service! See you Again!      @\n");
+	printf("@                                                            @\n");
+	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n\n");
 }
