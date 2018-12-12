@@ -37,6 +37,18 @@ city *initCity(hTree* hTree, int tourT) {
 	return s;
 }
 
+int searchTransport(tp **t, int start, int end) {
+	for (int i = 0; i < 300; i++) {
+		if (t[i]->start == start && t[i]->end == end) {
+			return i;
+		}
+		if (t[i]->end == start && t[i]->start == end) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 void insertVertex(city *S, gNode *edge) {
 	gNode *cur;
 	if (S->head == NULL) {

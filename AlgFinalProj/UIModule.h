@@ -1,3 +1,13 @@
+/**
+* Algorithm Final Project - UIModule.h
+*
+* Team 21 :
+*		2017312077 YESONG HA
+*		2017310528 JAEKWANG SHIN
+*
+* github repository :
+*		https://github.com/shinjawkwang/AlgFinalProj
+*/
 #ifndef __UI_MODULE__
 #include "customer.h"
 #define __UI_MODULE__
@@ -10,7 +20,7 @@ typedef struct __INFORMATION__ {
 } userinfo;
 
 userinfo *initUI(cTree *tree);
-void ResultUI(customer *id);
+void ResultUI(customer *person, city **city, userinfo *user, tp **t);
 
 /* Tree print functions - hotel */
 int heightPrint(hotel *n);

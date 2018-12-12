@@ -52,5 +52,6 @@ typedef struct __SITEINFO__ {
 tp *initTransport(int *vInfo, int price);
 gNode *initGNode(int sID, tp *trans);
 city *initCity(hTree* hTree, int tourT);
+int searchTransport(tp **t, int start, int end);
 void insertVertex(city *S, gNode *edge);
 #endif

@@ -18,12 +18,13 @@ hTree *initHTree() {
 	return t;
 }
 
-hotel *initHotel(int k) {
+hotel *initHotel(int k, int i) {
 	hotel *n = (hotel *)malloc(sizeof(hotel));
 	n->left = NULL;
 	n->right = NULL;
 	n->p = NULL;
 	n->key = k;
+	n->id = i;
 	n->isRed = 0;
 	return n;
 }

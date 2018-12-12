@@ -1,5 +1,5 @@
 /**
-* Algorithm Final Project - graphNTransport.h
+* Algorithm Final Project - itinerary.h
 *
 * Team 21 :
 *		2017312077 YESONG HA
@@ -8,7 +8,6 @@
 * github repository :
 *		https://github.com/shinjawkwang/AlgFinalProj
 */
-
 #include "Hotel.h"
 #include "customer.h"
 #include "graphNTransport.h"
@@ -16,4 +15,5 @@
 
 int routeFinding(customer* person, city* now, int nowIndex, city** city, int nowT, int back, userinfo *user);
 void moneyCalculate(customer* person, city* now, city** city);
-void itinerary(customer* person, city* now, city** city, userinfo *user);
+void stackPrinter(city **c, tp **t);
+void itinerary(customer* person, city* now, city** city, userinfo *user, tp **tp);
