@@ -1,25 +1,28 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "UIModule.h"
 #include "customer.h"
 
 userinfo *initUI(cTree *tree) {
-	userinfo *user;
-	char *cmd;
+	userinfo *user = (userinfo *)malloc(sizeof(userinfo));
+	customer *tmp;
+	char cmd[100];
 	int cmdI;
-	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
-	printf("@                                                            @\n");
-	printf("@       Welcome to SKKU TRAVEL RECOMMENDATION SERVICE!       @\n");
-	printf("@                                                            @\n");
-	printf("@     Before Starting, we'll ask some information of you     @\n");
-	printf("@                                                            @\n");
-	printf("@     If you agree collecting your information, PRESS Y!     @\n");
-	printf("@     If you don't agree or want to end service, PRESS N.    @\n");
-	printf("@                                                            @\n");
-	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
-	printf("\n\n>>   둘 중에 하나만 골라 Yes or Yes! (Y/N): ");
 
 	while (1) {
+		printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+		printf("@                                                            @\n");
+		printf("@       Welcome to SKKU TRAVEL RECOMMENDATION SERVICE!       @\n");
+		printf("@                                                            @\n");
+		printf("@     Before Starting, we'll ask some information of you     @\n");
+		printf("@                                                            @\n");
+		printf("@    1. If you agree collecting your information, PRESS Y!   @\n");
+		printf("@    2. If you don't agree or want to end service, PRESS N.  @\n");
+		printf("@    3. If you already used our service, PRESS S.            @\n");
+		printf("@                                                            @\n");
+		printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+		printf("\n\n>>   셋 중에 하나만 골라 Yes or Yes! (Y/N/S): ");
 		scanf("%s", cmd);
 		if (strcmp(cmd, "Y") == 0 || strcmp(cmd, "y") == 0) {
 			break;
@@ -27,6 +30,24 @@ userinfo *initUI(cTree *tree) {
 		else if (strcmp(cmd, "N") == 0 || strcmp(cmd, "n")) {
 			printf("END PROGRAM. Good Bye!\n");
 			return NULL;
+		}
+		else if (strcmp(cmd, "S") == 0 || strcmp(cmd, "s")) {
+			while (1) {
+				printf(">>   Then, input your ID (q to end): ");
+				scanf("%s", cmd);
+				tmp = search(tree, cmd);
+				if (strcmp(cmd, "q") == 0) {
+					printf("     END PROGRAM. Good Bye!\n");
+					return NULL;
+				}
+				else if (tmp == NULL) {
+					printf("     ※ ERROR: ID DOESN'T EXIST!!!\n");
+				}
+				else {
+					ResultUI(tmp);
+					break;
+				}
+			}
 		}
 		else {
 			printf("Wrong Input! please input again..\n");
@@ -45,8 +66,11 @@ userinfo *initUI(cTree *tree) {
 	while (1) {
 		printf("\n\n>>   Type your ID, please (string): ");
 		scanf("%s", cmd);
-		if (search(tree, cmd) == NULL) {
+		if (search(tree, cmd) != NULL) {
 			printf("\n     ※ ERROR: ID ALREADY EXISTS!!!\n");
+		}
+		else if (strcmp(cmd, "q") == 0) {
+			printf("\n     ※ ERROR: YOU CAN'T USE THIS ID.\n");
 		}
 		else {
 			user->key = cmd;
@@ -180,7 +204,7 @@ int heightPrint(customer *n) {
 }
 
 int print(customer *n, int isLeft, int offset, int depth, char treeStr[20][255]) {
-	char b[5];
+	char b[20];
 	int width = 3;
 
 	if (n == NULL) {
@@ -188,7 +212,7 @@ int print(customer *n, int isLeft, int offset, int depth, char treeStr[20][255])
 	}
 
 	/* print color and key value */
-	sprintf(b, "%c%02d", n->isRed ? 'R' : 'B', n->key);
+	sprintf(b, "%c%15s", n->isRed ? 'R' : 'B', n->key);
 
 	int left = print(n->left, 1, offset, depth + 1, treeStr);
 	int right = print(n->right, 0, offset + left + width, depth + 1, treeStr);

@@ -26,7 +26,6 @@ int *setVertex(tp **tpGroup, int size);   // avoid creating vertex that is alrea
 
 int main(void) {
 	int i, j, price;				// i,j: for iteration; price: literally
-	int tmpDst;						// tmpDst: used for input dst
 	int *vertex;					// vertex
 	char *userID;					// userID: used for input key
 	cTree *customerTree;		    // RBTree that save customer information
@@ -87,7 +86,7 @@ int main(void) {
 		rbInsert(customerTree, person);
 		printTree(customerTree);
 
-		routeFinding(person, person->destination, tmpDst, city, 0, 0);
+		routeFinding(person, person->destination, user->destination, city, 0, 0);
 
 	}
 	
