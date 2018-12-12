@@ -82,17 +82,34 @@ userinfo *initUI(cTree *tree) {
 			break;
 		}
 	}
-	printf("\n>>   Type your Destination City, please (0~99): ");
-	scanf("%d", &cmdI);
+	while (1) {
+		printf("\n>>   Type your Destination City, please (0~99): ");
+		scanf("%d", &cmdI);
+		if (0 <= cmdI && cmdI <= 99) {
+			break;
+		}
+		else {
+			printf("     ¡Ø ERROR: YOUR INPUT IS NOT IN OUR BOUNDARY.\n");
+		}
+	}
 	user->destination = cmdI;
-
-	printf(">>   Type your travel budget, please (integer): ");
-	scanf("%d", &cmdI);
-	user->budget = cmdI;
 
 	printf(">>   Type your travel period, please (integer): ");
 	scanf("%d", &cmdI);
 	user->period = cmdI;
+
+	while (1) {
+		printf(">>   Type your travel budget, please(integer)\n");
+		printf("     budget should be same or larger than (period * 1500): ");
+		scanf("%d", &cmdI);
+		if (cmdI <= (user->period * 1500)) {
+			break;
+		}
+		else {
+			printf("     ¡Ø ERROR: YOUR INPUT IS NOT IN OUR BOUNDARY.\n");
+		}
+	}
+	user->budget = cmdI;
 	
 	printf("\n\n");
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
