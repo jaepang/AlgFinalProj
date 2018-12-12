@@ -85,7 +85,7 @@ int main(void) {
 		rbInsert(customerTree, person);
 		printTree(customerTree);
 
-		routeFinding(person, person->destination, user->destination, city, 0, 0);
+		itinerary(person, person->destination, city, user);
 
 	}
 	

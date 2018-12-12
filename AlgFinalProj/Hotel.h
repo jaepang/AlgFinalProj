@@ -36,4 +36,5 @@ void rbInsertFixup(hTree *T, hotel *z);
 void rbInsert(hTree *T, hotel *z);
 void rbDeleteFixup(hTree *T, hotel *x);
 void rbDelete(hTree *T, int tar);
+hotel *search_p(hTree *T, int z);
 #endif
