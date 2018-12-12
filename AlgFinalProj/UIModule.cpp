@@ -3,6 +3,7 @@
 #include <string.h>
 #include "UIModule.h"
 #include "customer.h"
+#include "itinerary.h"
 
 userinfo *initUI(cTree *tree) {
 	userinfo *user = (userinfo *)malloc(sizeof(userinfo));
@@ -123,25 +124,16 @@ userinfo *initUI(cTree *tree) {
 	return user;
 }
 
-void ResultUI(customer *id) {
+void ResultUI(customer *person, city **city, userinfo *user, tp **t) {
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"); // 62
 	printf("@                                                            @\n");
 	printf("@            THANK YOU for waiting our program!!!            @\n");
 	printf("@                                                            @\n");
-	printf("@                 Now, Let's see the result.                 @\n");
-	printf("@                   Your ID: %15s                   @\n", id->key); // 19 24 19
+	printf("@   We'll show you the result while running our algorithm.   @\n");
 	printf("@                                                            @\n");
+	printf("@                   Your ID: %15s                   @\n", person->key); // 19 24 19
 	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@                                                            @\n");
-	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+	itinerary(person, person->destination, city, user, t);
 }
 
 /**

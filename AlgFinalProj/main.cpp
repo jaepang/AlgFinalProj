@@ -45,7 +45,7 @@ int main(void) {
 		for (j = 0; j < HOTELSIZE; j++) {
 			// hotel price boundary: 500~5000
 			price = (rand() % 10 + 1) * 500;
-			node = initHotel(price);
+			node = initHotel(price, j);
 			rbInsert(hotelTree, node);
 		}
 		// city tour time boundary: 1~5 (days)
@@ -85,7 +85,7 @@ int main(void) {
 		rbInsert(customerTree, person);
 		printTree(customerTree);
 
-		itinerary(person, person->destination, city, user);
+		ResultUI(person, city, user, transport);
 
 	}
 	

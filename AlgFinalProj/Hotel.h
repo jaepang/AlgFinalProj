@@ -18,6 +18,7 @@ typedef struct __HOTELNODE__ {
 	struct __HOTELNODE__ *p;
 	/*================================*/
 	int key;
+	int id;
 	int isRed;
 } hotel;
 
@@ -26,7 +27,7 @@ typedef struct __HOTELTREE__ {
 } hTree;
 
 hTree *initHTree();
-hotel *initHotel(int k);
+hotel *initHotel(int k, int i);
 hotel *search(hTree *T, int z);
 hotel *successor(hotel *z);
 hotel *precessor(hotel *z);
