@@ -46,7 +46,7 @@ userinfo *initUI(cTree *tree) {
 					printf("     ¡Ø ERROR: ID DOESN'T EXIST!!!\n");
 				}
 				else {
-					ResultUI(tmp);
+					//ResultUI(tmp);
 					break;
 				}
 			}
@@ -103,7 +103,7 @@ userinfo *initUI(cTree *tree) {
 		printf(">>   Type your travel budget, please(integer)\n");
 		printf("     budget should be same or larger than (period * 1500): ");
 		scanf("%d", &cmdI);
-		if (cmdI <= (user->period * 1500)) {
+		if (cmdI >= (user->period * 1500)) {
 			break;
 		}
 		else {
